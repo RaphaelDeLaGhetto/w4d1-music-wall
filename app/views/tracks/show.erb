@@ -8,5 +8,8 @@
   <a href="<%= @track.url %>"><%= @track.url %></a>
 </p>
 
+<p>
+   Posted by: <%= @track.user.email if @track.user %>
+</p>
 <hr/>
 <a href="/tracks">Back to All Tracks</a>

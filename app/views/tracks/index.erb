@@ -5,5 +5,8 @@
     <p>
       <a href="<%= track.url %>"><%= track.url %></a>
     </p>
+    <p>
+      Posted by: <%= track.user.email if track.user %>
+    </p>
   </div>
 <% end %>

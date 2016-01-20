@@ -27,7 +27,8 @@ post '/tracks' do
   @track = Track.new(
               song_title: params[:song_title],
               url: params[:url],
-              author:  params[:author]
+              author:  params[:author],
+              user: current_user
             )
   if @track.save
     redirect '/tracks'
