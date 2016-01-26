@@ -9,7 +9,7 @@ end
 # tracks
 #
 get '/tracks' do
-  @tracks = Track.all
+  @tracks = Track.joins('LEFT OUTER JOIN upvotes ON upvotes.track_id = tracks.id').all.group(:id).order('COUNT(upvotes.track_id) DESC')
   erb :'tracks/index'
 end
 
@@ -81,6 +81,14 @@ get '/logout' do
   redirect '/', notice: "Adios!"
 end
 
+#
+# upvote
+#
+post '/upvote' do
+  current_user.upvotes.create(track_id: params[:track_id]) if current_user.upvotes.where(track_id: params[:track_id]).empty?
+  redirect '/tracks'
+end
+
 
 #
 # helpers
@@ -90,3 +98,5 @@ helpers do
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 end
+
+

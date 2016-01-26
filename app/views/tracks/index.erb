@@ -8,5 +8,12 @@
     <p>
       Posted by: <%= track.user.email if track.user %>
     </p>
+    <% if current_user && current_user.upvotes.where(track_id: track.id).empty? %>
+      <form method="post" action="/upvote">
+        <input type="hidden" name="track_id" value="<%= track.id %>">
+        <input class='btn btn-primary' type='submit' value='Upvote'>
+      </form>
+    <% end %>
+    <h4><%= track.upvotes.count %> <%= track.upvotes.count == 1 ? 'vote' : 'votes' %></h4>
   </div>
 <% end %>
